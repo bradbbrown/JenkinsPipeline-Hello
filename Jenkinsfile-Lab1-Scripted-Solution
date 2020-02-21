@@ -1,0 +1,30 @@
+node {
+    stage 'Prepare'
+
+    //  Retrieve project from repo.
+    //  For the lab, we use GitHub to host the repo
+    //  For simplicity, this is an open repository - no authentication is required to clone
+    git 'https://github.com/bradbbrown/JenkinsPipeline-Hello'
+
+    stage 'Compile'
+
+    //  For the lab, we just call Maven with a 'compile' goal
+    sh 'mvn compile'
+
+    stage 'Test'
+
+    //  For the lab, we call Maven with a 'test' goal.
+    //  Notice there are several shell commands.  We pass them to the
+    //  sh step as a multiline string so that there is only one
+    //  invocation of the step.
+    sh '''
+        mvn test
+        mvn package
+        java -cp target/javaHelloWorld-1.0.jar com.acme.App
+        echo "Tests completed!"
+    '''
+
+    stage 'Archive binary'
+    //  Save the binary
+    archiveArtifacts 'target/*.jar'
+}
