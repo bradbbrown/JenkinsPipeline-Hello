@@ -1,8 +1,9 @@
 package com.acme;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Unit test for simple App.
@@ -14,5 +15,11 @@ public class AppTest {
     @Test
     public void shouldAnswerWithTrue() {
         assertTrue(true);
+    }
+
+    @Test
+    public void shouldAddUp() {
+        App app = new App();
+        assertEquals(app.addThings(1, 2), 3);
     }
 }
